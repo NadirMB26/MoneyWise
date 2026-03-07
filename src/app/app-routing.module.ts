@@ -19,7 +19,11 @@ const routes: Routes = [
   path: 'home',
   loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
   canActivate: [AuthGuard]
-}
+},
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./modules/dashboard/dashboard/dashboard.module').then( m => m.DashboardPageModule),canActivate: [AuthGuard]
+  },
 
 ];
 
