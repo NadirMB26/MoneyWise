@@ -21,21 +21,40 @@ const routes: Routes = [
   canActivate: [AuthGuard]
 },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./modules/dashboard/dashboard/dashboard.module').then( m => m.DashboardPageModule),canActivate: [AuthGuard]
-  },
+  path: 'dashboard',
+  loadChildren: () => import('./modules/dashboard/dashboard/dashboard.module')
+  .then(m => m.DashboardPageModule),
+  canActivate: [AuthGuard]
+},
   {
-    path: 'lista-transacciones',
-    loadChildren: () => import('./modules/transacciones/lista-transacciones/lista-transacciones.module').then( m => m.ListaTransaccionesPageModule)
-  },
-  {
-    path: 'detalle-transaccion',
-    loadChildren: () => import('./modules/transacciones/detalle-transaccion/detalle-transaccion.module').then( m => m.DetalleTransaccionPageModule)
-  },
-  {
-    path: 'form-transaccion',
-    loadChildren: () => import('./modules/transacciones/form-transaccion/form-transaccion.module').then( m => m.FormTransaccionPageModule)
-  },
+  path: 'lista-transacciones',
+  loadChildren: () =>
+    import('./modules/transacciones/lista-transacciones/lista-transacciones.module')
+    .then(m => m.ListaTransaccionesPageModule),
+  canActivate: [AuthGuard]
+},
+
+{
+  path: 'detalle-transaccion',
+  loadChildren: () =>
+    import('./modules/transacciones/detalle-transaccion/detalle-transaccion.module')
+    .then(m => m.DetalleTransaccionPageModule),
+  canActivate: [AuthGuard]
+},
+
+{
+  path: 'form-transaccion',
+  loadChildren: () =>
+    import('./modules/transacciones/form-transaccion/form-transaccion.module')
+    .then(m => m.FormTransaccionPageModule),
+  canActivate: [AuthGuard]
+},
+ { path: 'tabs',
+  loadChildren: () =>
+    import('./modules/tabs/tabs.module')
+    .then(m => m.TabsPageModule),
+  canActivate: [AuthGuard]
+}
 
 ];
 

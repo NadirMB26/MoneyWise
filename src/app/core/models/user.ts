@@ -1,50 +1,75 @@
+import { Transaccion } from './transaccion';
+
 export class User {
 
   private id: string;
   private nombre: string;
   private email: string;
   private password: string;
+  private transacciones: Transaccion[];
 
-  constructor(id: string, nombre: string, email: string, password: string) {
+  constructor(
+    id: string,
+    nombre: string,
+    email: string,
+    password: string,
+    transacciones: Transaccion[] = []
+  ) {
+
     this.id = id;
     this.nombre = nombre;
     this.email = email;
     this.password = password;
+    this.transacciones = transacciones;
+
   }
 
   // GETTERS
 
-  public getId(): string {
+  getId(): string {
     return this.id;
   }
 
-  public getNombre(): string {
+  getNombre(): string {
     return this.nombre;
   }
 
-  public getEmail(): string {
+  getEmail(): string {
     return this.email;
   }
 
-  public getPassword(): string {
+  getPassword(): string {
     return this.password;
+  }
+
+  getTransacciones(): Transaccion[] {
+    return this.transacciones;
   }
 
   // SETTERS
 
-  public setId(id: string): void {
+  setId(id: string) {
     this.id = id;
   }
 
-  public setNombre(nombre: string): void {
+  setNombre(nombre: string) {
     this.nombre = nombre;
   }
 
-  public setEmail(email: string): void {
+  setEmail(email: string) {
     this.email = email;
   }
 
-  public setPassword(password: string): void {
+  setPassword(password: string) {
     this.password = password;
   }
+
+  setTransacciones(transacciones: Transaccion[]) {
+    this.transacciones = transacciones;
+  }
+
+  agregarTransaccion(t: Transaccion) {
+    this.transacciones.push(t);
+  }
+
 }

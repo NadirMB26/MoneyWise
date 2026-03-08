@@ -4,28 +4,72 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
+<app-filter-bar
+(onTipoChange)="tipoFiltro = $event"
+(onCategoriaChange)="categoriaFiltro = $event"
+(onBuscarChange)="textoBusqueda = $event">
+</app-filter-bar>
 <ion-list>
 
-<ion-item *ngFor="let t of transacciones">
+<ion-item-sliding
+*ngFor="let t of (
+  transacciones
+  | filterByType:tipoFiltro
+  | filterByCategory:categoriaFiltro
+  | searchByText:textoBusqueda
+)">
 
-  <ion-label>
+  <!-- editar -->
+  <ion-item-options side="start">
 
-    <h2>{{t.getCategoria()}}</h2>
+    <ion-item-option color="warning"
+      (click)="editarTransaccion(t)">
 
-    <p>{{t.getFecha() | date:'shortDate'}}</p>
+      <ion-icon slot="icon-only" name="create-outline"></ion-icon>
 
-  </ion-label>
+    </ion-item-option>
 
-  <ion-badge
-    [color]="t.getTipo() === 'ingreso' ? 'success' : 'danger'">
+  </ion-item-options>
 
-    {{t.getMonto()}}
+  <!-- item -->
+  <ion-item (click)="verDetalle(t)">
 
-  </ion-badge>
+    <ion-label>
 
-</ion-item>
+      <h2>{{t.getCategoria()}}</h2>
+
+      <p>{{t.getDescripcion()}}</p>
+
+      <p>{{t.getFecha() | date:'shortDate'}}</p>
+
+    </ion-label>
+
+    <ion-badge
+      slot="end"
+      [color]="t.getTipo() === 'ingreso' ? 'success' : 'danger'">
+
+      {{t.getMonto() | currency}}
+
+    </ion-badge>
+
+  </ion-item>
+
+  <!-- eliminar -->
+  <ion-item-options side="end">
+
+    <ion-item-option
+      color="danger"
+      (click)="eliminarTransaccion(t)">
+
+      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+
+    </ion-item-option>
+
+  </ion-item-options>
+
+</ion-item-sliding>
 
 </ion-list>
 

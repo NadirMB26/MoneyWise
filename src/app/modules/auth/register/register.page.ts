@@ -25,19 +25,29 @@ export class RegisterPage implements OnInit {
   }
 
   register() {
+    
+    let users = this.storage.get('users') || [];
+
+    let exist = users.find((u:any) => u.email === this.email);
+
+    if(exist){
+      alert("El usuario ya existe");
+      return;
+    }
 
   if(!this.nombre || !this.email || !this.password){
     alert("Todos los campos son obligatorios");
     return;
   }
 
-  let users = this.storage.get('users') || [];
+ 
 
   const newUser = new User(
     Date.now().toString(),
     this.nombre,
     this.email,
-    this.password
+    this.password,
+    []
   );
 
   users.push(newUser);

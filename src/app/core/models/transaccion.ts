@@ -5,8 +5,10 @@ export class Transaccion {
   private categoria: string;
   private fecha: Date;
   private monto: number;
-  private descripcion?: string;
-  private comprobante?: string;
+  private descripcion: string;
+  private comprobante: string; // imagen en base64 o url
+
+  
 
   constructor(
     id: string,
@@ -14,9 +16,10 @@ export class Transaccion {
     categoria: string,
     fecha: Date,
     monto: number,
-    descripcion?: string,
-    comprobante?: string
-  ) {
+    descripcion: string,
+    comprobante: string
+  ){
+
     this.id = id;
     this.tipo = tipo;
     this.categoria = categoria;
@@ -24,61 +27,37 @@ export class Transaccion {
     this.monto = monto;
     this.descripcion = descripcion;
     this.comprobante = comprobante;
+
   }
 
   // GETTERS
 
-  public getId(): string {
+  getId(){
     return this.id;
   }
 
-  public getTipo(): 'ingreso' | 'gasto' {
+  getTipo(){
     return this.tipo;
   }
 
-  public getCategoria(): string {
+  getCategoria(){
     return this.categoria;
   }
 
-  public getFecha(): Date {
+  getFecha(){
     return this.fecha;
   }
 
-  public getMonto(): number {
+  getMonto(){
     return this.monto;
   }
 
-  public getDescripcion(): string | undefined {
+  getDescripcion(){
     return this.descripcion;
   }
 
-  public getComprobante(): string | undefined {
+  getComprobante(){
     return this.comprobante;
   }
 
-  // SETTERS
-
-  public setTipo(tipo: 'ingreso' | 'gasto'): void {
-    this.tipo = tipo;
-  }
-
-  public setCategoria(categoria: string): void {
-    this.categoria = categoria;
-  }
-
-  public setFecha(fecha: Date): void {
-    this.fecha = fecha;
-  }
-
-  public setMonto(monto: number): void {
-    this.monto = monto;
-  }
-
-  public setDescripcion(descripcion: string): void {
-    this.descripcion = descripcion;
-  }
-
-  public setComprobante(comprobante: string): void {
-    this.comprobante = comprobante;
-  }
 }

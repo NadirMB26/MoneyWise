@@ -40,7 +40,7 @@ export class LoginPage {
       // guardar sesión activa
       this.storage.set('session', userFound);
 
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/tabs/dashboard']);
 
     }else{
 

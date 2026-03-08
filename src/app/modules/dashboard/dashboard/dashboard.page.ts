@@ -2,11 +2,14 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TransaccionService } from '../../../core/services/transaccion';
 import { Transaccion } from '../../../core/models/transaccion';
 import { Chart } from 'chart.js/auto';
+import { Router } from '@angular/router';
+import { StorageService } from '../../../core/services/storage';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
-  styleUrls: ['./dashboard.page.scss']
+  styleUrls: ['./dashboard.page.scss'],
+  standalone: false,
 })
 export class DashboardPage implements OnInit, AfterViewInit {
 
@@ -16,83 +19,90 @@ export class DashboardPage implements OnInit, AfterViewInit {
 
   chart: any;
 
-  constructor(private transaccionService: TransaccionService) {}
+  constructor(
+    private transaccionService: TransaccionService,
+    private storage: StorageService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-    this.calcularResumen();
+  async ngOnInit() {
+  await this.calcularResumen();
+
+  this.crearGrafica();
   }
 
-  ngAfterViewInit() {
-    this.crearGrafica();
+  async ngAfterViewInit() {
+    await this.crearGrafica();
   }
 
-  calcularResumen(){
+async calcularResumen(){
 
-    let data = this.transaccionService.getTransacciones() || [];
+  let transacciones: Transaccion[] =
+    await this.transaccionService.getTransaccionesUsuario() || [];
 
-    let transacciones: Transaccion[] = data.map((t:any)=>
-      new Transaccion(
-        t.id,
-        t.tipo,
-        t.categoria,
-        new Date(t.fecha),
-        t.monto,
-        t.descripcion,
-        t.comprobante
-      )
-    );
+  this.ingresos = 0;
+  this.gastos = 0;
 
-    this.ingresos = 0;
-    this.gastos = 0;
+  transacciones.forEach(t => {
 
-    transacciones.forEach(t => {
+    if(t.getTipo() === 'ingreso'){
+      this.ingresos += t.getMonto();
+    }
 
-      if(t.getTipo() === 'ingreso'){
-        this.ingresos += t.getMonto();
+    if(t.getTipo() === 'gasto'){
+      this.gastos += t.getMonto();
+    }
+
+  });
+
+  this.saldo = this.ingresos - this.gastos;
+
+}
+
+async crearGrafica(){
+
+  let data = await this.transaccionService.getTransaccionesUsuario() || [];
+
+  let categorias: any = {};
+
+  data.forEach((t:any)=>{
+
+    if(t.getTipo() === 'gasto'){
+
+      if(!categorias[t.getCategoria()]){
+        categorias[t.getCategoria()] = 0;
       }
 
-      if(t.getTipo() === 'gasto'){
-        this.gastos += t.getMonto();
-      }
+      categorias[t.getCategoria()] += t.getMonto();
 
-    });
+    }
 
-    this.saldo = this.ingresos - this.gastos;
+  });
 
+  const labels = Object.keys(categorias);
+  const valores = Object.values(categorias);
+
+  if(this.chart){
+    this.chart.destroy();
   }
 
-  crearGrafica(){
+  this.chart = new Chart("graficaPastel", {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: valores
+      }]
+    }
+  });
 
-    let data = this.transaccionService.getTransacciones() || [];
+}
 
-    let categorias: any = {};
+  logout(){
 
-    data.forEach((t:any)=>{
+    this.storage.remove('session');
 
-      if(t.tipo === 'gasto'){
-
-        if(!categorias[t.categoria]){
-          categorias[t.categoria] = 0;
-        }
-
-        categorias[t.categoria] += t.monto;
-
-      }
-
-    });
-
-    const labels = Object.keys(categorias);
-    const valores = Object.values(categorias);
-
-    this.chart = new Chart("graficaPastel", {
-      type: 'pie',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: valores
-        }]
-      }
-    });
+    this.router.navigate(['/auth/login']);
 
   }
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { User } from '../models/user';
 import { StorageService } from './storage';
 
 @Injectable({
@@ -8,7 +7,7 @@ import { StorageService } from './storage';
 })
 export class AuthService {
 
-  private usuarioActual = new BehaviorSubject<User | null>(null);
+  private usuarioActual = new BehaviorSubject<any>(null);
 
   constructor(private storage: StorageService) {}
 
@@ -16,18 +15,18 @@ export class AuthService {
     return this.usuarioActual.asObservable();
   }
 
-  async register(user: User){
-
-    await this.storage.set('usuario', user);
-
-    this.usuarioActual.next(user);
-  }
-
+  // LOGIN
   async login(email:string,password:string){
 
-    const user = await this.storage.get('usuario');
+    let users = this.storage.get('users') || [];
 
-    if(user && user.email === email && user.password === password){
+    const user = users.find(
+      (u:any)=> u.email === email && u.password === password
+    );
+
+    if(user){
+
+      this.storage.set('session', user);
 
       this.usuarioActual.next(user);
 
@@ -37,16 +36,27 @@ export class AuthService {
     return false;
   }
 
+  // LOGOUT
   logout(){
+
+    this.storage.remove('session');
 
     this.usuarioActual.next(null);
 
   }
+
+  // USUARIO ACTUAL
   async getUsuarioActual(){
 
-  return this.usuarioActual.value;
+    let user = this.usuarioActual.value;
 
-}
-  
+    if(!user){
+      user = this.storage.get('session');
+      this.usuarioActual.next(user);
+    }
+
+    return user;
+
+  }
 
 }

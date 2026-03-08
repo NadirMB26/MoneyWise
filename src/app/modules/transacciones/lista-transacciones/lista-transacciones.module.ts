@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ListaTransaccionesPageRoutingModule } from './lista-transacciones-routing.module';
 
 import { ListaTransaccionesPage } from './lista-transacciones.page';
+import { SharedModule } from 'src/app/shared/shared-module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListaTransaccionesPageRoutingModule
+    ListaTransaccionesPageRoutingModule,
+    SharedModule,
+    
   ],
   declarations: [ListaTransaccionesPage]
 })
