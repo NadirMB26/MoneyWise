@@ -1,0 +1,56 @@
+.toolbar-fintech{
+
+--background:#ffffff;
+
+color:rgb(61, 1, 74);
+
+}
+
+.header-container{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+width:100%;
+
+}
+
+/* espacio para centrar el titulo */
+
+.spacer{
+
+width:40px;
+
+}
+
+.app-title{
+
+flex:1;
+
+text-align:center;
+
+
+color:rgb(68, 2, 73);
+
+letter-spacing:1px;
+
+
+  font-family: 'Poppins', 'Roboto', sans-serif; /* fuentes modernas */
+  font-size: 30px; /* tamaño grande */
+  font-weight: 700; /* negrilla */
+  letter-spacing: 1px; /* separación ligera */
+  text-transform: uppercase; /* opcional, para dar más presencia */
+
+
+}
+
+ion-button{
+
+color:white;
+
+font-size:22px;
+
+}

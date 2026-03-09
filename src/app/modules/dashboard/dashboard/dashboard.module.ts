@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
 import { DashboardPage } from './dashboard.page';
+import { SharedModule } from 'src/app/shared/shared-module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { DashboardPage } from './dashboard.page';
     FormsModule,
     IonicModule,
     DashboardPageRoutingModule,
+    SharedModule
  
   ],
   declarations: [DashboardPage]

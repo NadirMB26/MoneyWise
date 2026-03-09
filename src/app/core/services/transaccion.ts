@@ -22,9 +22,8 @@ async guardarTransaccion(transaccion: Transaccion){
     return;
   }
 
-  let users = this.storage.get('users') || [];
+  let users = await this.storage.get('users') || [];
 
-  // buscar el usuario correcto
   const index = users.findIndex(
     (u:any)=> u.id === usuario.id
   );
@@ -34,16 +33,13 @@ async guardarTransaccion(transaccion: Transaccion){
     return;
   }
 
-  // crear arreglo si no existe
   if(!users[index].transacciones){
     users[index].transacciones = [];
   }
 
-  // guardar transacción SOLO en ese usuario
   users[index].transacciones.push(transaccion);
 
-  // guardar cambios
-  this.storage.set('users', users);
+  await this.storage.set('users', users);
 
 }
 
@@ -53,13 +49,12 @@ async getTransaccionesUsuario(){
 
   if(!usuario) return [];
 
-  let users = this.storage.get('users') || [];
+  let users = await this.storage.get('users') || [];
 
   const user = users.find((u:any)=>u.id === usuario.id);
 
-  if(!user) return [];
+  if(!user || !user.transacciones) return [];
 
-  // reconstruir las clases
   return user.transacciones.map((t:any)=>
 
     new Transaccion(

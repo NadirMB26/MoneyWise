@@ -1,0 +1,214 @@
+ion-content{
+
+--background: transparent;
+
+}
+
+/* fondo */
+
+.fondo-fintech{
+
+position:relative;
+
+min-height:100%;
+
+background: linear-gradient(
+135deg,
+#6A11CB,
+#8E2DE2,
+#ffffff
+);
+
+background-size:400% 400%;
+
+animation: gradientMove 10s ease infinite;
+
+overflow:hidden;
+
+}
+
+/* animación */
+
+@keyframes gradientMove{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* formas */
+
+.fondo-fintech::before{
+
+content:"";
+
+position:absolute;
+
+width:340px;
+
+height:340px;
+
+background:rgba(255,255,255,0.12);
+
+border-radius:50%;
+
+top:-120px;
+
+right:-120px;
+
+}
+
+.fondo-fintech::after{
+
+content:"";
+
+position:absolute;
+
+width:220px;
+
+height:220px;
+
+background:rgba(255,255,255,0.12);
+
+border-radius:50%;
+
+bottom:-80px;
+
+left:-80px;
+
+}
+.dashboard-container{
+
+padding-top:20px;
+
+}
+
+/* tarjeta saldo */
+
+.saldo-card{
+
+border-radius:24px;
+
+background:white;
+
+text-align:center;
+
+margin-bottom:15px;
+
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+
+}
+
+/* ingresos y gastos */
+
+.mini-card{
+
+border-radius:18px;
+
+text-align:center;
+
+padding:16px;
+
+font-weight:600;
+
+box-shadow:0 6px 18px rgba(0,0,0,0.07);
+
+}
+
+.mini-card h3{
+
+font-size:14px;
+
+font-weight:600;
+
+}
+
+.mini-card p{
+
+font-size:18px;
+
+font-weight:700;
+
+}
+
+/* grafica */
+
+.grafica-card{
+
+border-radius:20px;
+
+background:white;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+
+margin-top:10px;
+
+}
+
+/* tamaño grafica */
+
+.grafica-container{
+
+height:180px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+.lista-transacciones{
+
+background:transparent;
+
+padding:10px;
+
+}
+
+/* tarjeta fintech */
+
+.item-transaccion{
+
+--background:white;
+
+border-radius:16px;
+
+margin-bottom:12px;
+
+box-shadow:0 6px 16px rgba(0,0,0,0.08);
+
+}
+
+/* categoria */
+
+.item-transaccion h2{
+
+font-size:16px;
+
+font-weight:700;
+
+color:#2F2F3A;
+
+}
+
+/* descripcion */
+
+.item-transaccion p{
+
+font-size:13px;
+
+color:#7A7A8A;
+
+margin:2px 0;
+
+}

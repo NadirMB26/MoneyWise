@@ -1,72 +1,123 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Nueva Transacción</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
-<ion-content class="ion-padding">
+<ion-content>
+
+<div class="fondo-fintech">
+
+<div class="form-container">
+
+<ion-card class="form-card">
+
+<ion-card-header>
+
+<ion-card-title>Nueva Transacción</ion-card-title>
+
+</ion-card-header>
+
+<ion-card-content>
+
+<!-- TIPO -->
 
 <ion-item>
-  <ion-label>Tipo</ion-label>
-  <ion-segment [(ngModel)]="tipo">
-    <ion-segment-button value="ingreso">
-      Ingreso
-    </ion-segment-button>
-    <ion-segment-button value="gasto">
-      Gasto
-    </ion-segment-button>
-  </ion-segment>
+
+<ion-label>Tipo</ion-label>
+
+<ion-segment [(ngModel)]="tipo">
+
+<ion-segment-button value="ingreso">
+Ingreso
+</ion-segment-button>
+
+<ion-segment-button value="gasto">
+Gasto
+</ion-segment-button>
+
+</ion-segment>
+
 </ion-item>
 
+
+<!-- CATEGORIA -->
+
 <ion-item>
-  <ion-label>Categoría</ion-label>
 
-  <ion-select [(ngModel)]="categoria" placeholder="Selecciona">
+<ion-label>Categoría</ion-label>
 
-    <ion-select-option
-      *ngFor="let c of categorias"
-      [value]="c">
+<ion-select [(ngModel)]="categoria" placeholder="Selecciona">
 
-      {{c}}
+<ion-select-option
+*ngFor="let c of categorias"
+[value]="c">
 
-    </ion-select-option>
+{{c}}
 
-  </ion-select>
+</ion-select-option>
+
+</ion-select>
 
 </ion-item>
 
+
+<!-- MONTO -->
+
 <ion-item>
-  <ion-input
-    type="number"
-    label="Monto"
-    placeholder="0"
-    [(ngModel)]="monto">
-  </ion-input>
+
+<ion-input
+type="number"
+label="Monto"
+placeholder="0"
+[(ngModel)]="monto">
+
+</ion-input>
+
 </ion-item>
 
+
+<!-- DESCRIPCION -->
+
 <ion-item>
-  <ion-textarea
-    label="Descripción"
-    placeholder="Opcional"
-    [(ngModel)]="descripcion">
-  </ion-textarea>
+
+<ion-textarea
+label="Descripción"
+placeholder="Opcional"
+[(ngModel)]="descripcion">
+
+</ion-textarea>
+
 </ion-item>
 
-<ion-item>
-  <ion-button expand="block" (click)="tomarFoto()">
 
-  <ion-icon slot="start" name="camera"></ion-icon>
-  Agregar comprobante
+<!-- FOTO -->
+
+<ion-button expand="block" class="btn-foto" (click)="tomarFoto()">
+
+<ion-icon slot="start" name="camera"></ion-icon>
+
+Agregar comprobante
 
 </ion-button>
-</ion-item>
+
+
 <img
-  *ngIf="comprobante"
-  [src]="comprobante"
-  style="width:100%; margin-top:10px; border-radius:10px;">
+*ngIf="comprobante"
+[src]="comprobante"
+class="preview-img">
 
-<ion-button expand="block" color="success" (click)="guardar()">
-  Guardar Transacción
+
+<!-- GUARDAR -->
+
+<ion-button expand="block" class="btn-guardar" (click)="guardar()">
+
+Guardar Transacción
+
 </ion-button>
+
+</ion-card-content>
+
+</ion-card>
+
+</div>
+
+</div>
 
 </ion-content>

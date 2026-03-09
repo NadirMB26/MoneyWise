@@ -1,9 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Registro</ion-title>
+  <ion-toolbar class="app-header">
+
+    <ion-title class="main-title">
+      <span class="app-name">MoneyWise</span>
+      <span class="page-name"> - Registro</span>
+    </ion-title>
+
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding">
 
 <div class="login-container">
@@ -27,12 +31,15 @@
 
       <ion-item>
         <ion-input
+          type="email"
           label="Email"
           labelPlacement="floating"
-          [(ngModel)]="email">
+          [(ngModel)]="email"
+          name="email"
+          required
+          email>
         </ion-input>
       </ion-item>
-
       <ion-item>
         <ion-input
           type="password"
@@ -42,18 +49,23 @@
         </ion-input>
       </ion-item>
 
-      <ion-button expand="block" class="ion-margin-top" (click)="register()">
+      <ion-button id="open-loading" expand="block" class="ion-margin-top" routerLink="/auth/login">
         Crear cuenta
       </ion-button>
 
       <div class="register-link">
-        <ion-text>
+        <ion-text color="dark">
           ¿Ya tienes cuenta?
         </ion-text>
 
-        <ion-button fill="clear" routerLink="/auth/login">
+        <ion-button id="open-loading"
+          fill="clear"
+          routerLink="/auth/login"
+          class="btn-login">
           Inicia sesión
         </ion-button>
+        <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." [duration]="250"></ion-loading>
+
       </div>
 
     </ion-card-content>

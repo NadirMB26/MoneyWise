@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class ListaTransaccionesPage implements OnInit {
-  
+loading = true;
 tipoFiltro: string = 'todos';
 categoriaFiltro: string = '';
 textoBusqueda: string = '';
@@ -37,6 +37,8 @@ cambiarBusqueda(event:any){
      private router: Router
   ) {}
 
+
+
   ngOnInit(){}
 
 onSearchChange(event:any){
@@ -48,6 +50,13 @@ onSearchChange(event:any){
 
     this.transacciones =
       await this.transaccionService.getTransaccionesUsuario();
+
+      
+  this.loading = true;
+
+  this.transacciones = await this.transaccionService.getTransaccionesUsuario();
+
+  this.loading = false;
 
 
   }

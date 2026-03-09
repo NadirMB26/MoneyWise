@@ -10,6 +10,7 @@ import { FilterByTypePipe } from './pipes/filter-by-type-pipe';
 import { FilterByCategoryPipe } from './pipes/filter-by-category-pipe';
 import { SearchByTextPipe } from './pipes/search-by-text-pipe';
 import { TransactionDetailComponent } from './components/transaction-detail/transaction-detail.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TransactionDetailComponent } from './components/transaction-detail/tran
     FilterByTypePipe,
     FilterByCategoryPipe,
     SearchByTextPipe,
-    TransactionDetailComponent
+    TransactionDetailComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { TransactionDetailComponent } from './components/transaction-detail/tran
     FilterByTypePipe,
     FilterByCategoryPipe,
     SearchByTextPipe,
-    TransactionDetailComponent
+    TransactionDetailComponent,
+    HeaderComponent
   ]
 })
 export class SharedModule {}

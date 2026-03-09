@@ -1,6 +1,10 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>MoneyWise</ion-title>
+  <ion-toolbar class="app-header">
+
+    <ion-title class="main-title">
+      MoneyWise <span class="page-name">- Login</span>
+    </ion-title>
+
   </ion-toolbar>
 </ion-header>
 
@@ -34,9 +38,10 @@
         </ion-input>
       </ion-item>
 
-      <ion-button expand="block" class="ion-margin-top" (click)="login()">
+      <ion-button id="open-loading" expand="block" class="ion-margin-top" (click)="login()">
         Iniciar sesión
       </ion-button>
+      <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." [duration]="250"></ion-loading>
 
       <ion-text color="danger" *ngIf="error" class="ion-text-center">
         <p>{{ error }}</p>
@@ -47,9 +52,15 @@
           ¿No tienes cuenta?
         </ion-text>
 
-        <ion-button fill="clear" routerLink="/auth/register">
-          Regístrate
-        </ion-button>
+          <ion-button id="open-loading"
+            fill="clear"
+            routerLink="/auth/register"
+            class="btn-register">
+
+            Regístrate
+
+          </ion-button>
+          <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." [duration]="250"></ion-loading>
       </div>
 
     </ion-card-content>

@@ -45,6 +45,7 @@ export class LoginPage {
     }else{
 
       this.error = 'Correo o contraseña incorrectos';
+      this.router.navigate(['/auth/register']);
 
     }
 

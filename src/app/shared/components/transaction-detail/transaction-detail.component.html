@@ -1,13 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Detalle</ion-title>
+
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()">Cerrar</ion-button>
     </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
+
+<div class="fondo-fintech ion-padding">
 
 <ion-card>
 
@@ -19,10 +23,12 @@
 
     <ion-item>
       <ion-label>Tipo</ion-label>
+
       <ion-badge
       [color]="transaccion.getTipo() === 'ingreso' ? 'success' : 'danger'">
         {{transaccion.getTipo()}}
       </ion-badge>
+
     </ion-item>
 
     <ion-item>
@@ -43,10 +49,12 @@
     <img
     *ngIf="transaccion.getComprobante()"
     [src]="transaccion.getComprobante()"
-    style="width:100%; border-radius:10px; margin-top:10px">
+    class="comprobante">
 
   </ion-card-content>
 
 </ion-card>
+
+</div>
 
 </ion-content>

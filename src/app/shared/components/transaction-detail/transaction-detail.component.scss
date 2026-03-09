@@ -1,0 +1,46 @@
+.fondo-fintech{
+
+min-height:100%;
+
+background: linear-gradient(
+135deg,
+#6A11CB,
+#8E2DE2,
+#ffffff
+);
+
+background-size:400% 400%;
+
+animation: gradientMove 10s ease infinite;
+
+}
+
+@keyframes gradientMove{
+
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+
+}
+
+/* tarjeta */
+
+ion-card{
+
+border-radius:20px;
+
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+
+}
+
+/* imagen */
+
+.comprobante{
+
+width:100%;
+
+border-radius:12px;
+
+margin-top:15px;
+
+}

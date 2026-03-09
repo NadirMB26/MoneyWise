@@ -4,6 +4,7 @@ import { Transaccion } from '../../../core/models/transaccion';
 import { Chart } from 'chart.js/auto';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../core/services/storage';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,8 @@ import { StorageService } from '../../../core/services/storage';
   styleUrls: ['./dashboard.page.scss'],
   standalone: false,
 })
-export class DashboardPage implements OnInit, AfterViewInit {
+export class DashboardPage implements AfterViewInit{
+  nombreUsuario: string = '';
 
   saldo = 0;
   ingresos = 0;
@@ -22,14 +24,25 @@ export class DashboardPage implements OnInit, AfterViewInit {
   constructor(
     private transaccionService: TransaccionService,
     private storage: StorageService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
-  async ngOnInit() {
-  await this.calcularResumen();
 
-  this.crearGrafica();
+async ionViewWillEnter(){
+
+  const usuario = await this.authService.getUsuarioActual();
+
+  console.log("Usuario: dashboard", usuario);
+
+  if(usuario){
+    this.nombreUsuario = usuario.nombre;
   }
+
+  await this.calcularResumen();
+  await this.crearGrafica();
+
+}
 
   async ngAfterViewInit() {
     await this.crearGrafica();

@@ -1,90 +1,87 @@
-<ion-header>
-  <ion-toolbar>
+<app-header></app-header>
+<ion-content>
 
-    <ion-title>Dashboard</ion-title>
+<div class="fondo-fintech">
 
-    <ion-buttons slot="end">
+<div class="circle"></div>
 
-      <ion-button color="danger" (click)="logout()">
+<div class="ion-padding dashboard-container">
 
-        <ion-icon name="exit" slot="start"></ion-icon>
+<!-- SALDO -->
 
-      </ion-button>
+<ion-card class="saldo-card">
+  <h2>Usuario: {{nombreUsuario}} </h2>
 
-    </ion-buttons>
+<ion-card-header>
 
-  </ion-toolbar>
-</ion-header>
+<ion-card-subtitle>Saldo actual</ion-card-subtitle>
 
-<ion-content class="ion-padding">
+<ion-card-title>{{saldo | currency}}</ion-card-title>
 
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Saldo Actual</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    {{saldo}}
-  </ion-card-content>
+</ion-card-header>
+
 </ion-card>
 
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Ingresos</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    {{ingresos}}
-  </ion-card-content>
+
+<!-- INGRESOS / GASTOS -->
+
+<ion-grid>
+
+<ion-row>
+
+<ion-col size="6">
+
+<ion-card class="mini-card ingreso">
+
+<h3>Ingresos</h3>
+
+<p>{{ingresos | currency}}</p>
+
 </ion-card>
 
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Gastos</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    {{gastos}}
-  </ion-card-content>
+</ion-col>
+
+<ion-col size="6">
+
+<ion-card class="mini-card gasto">
+
+<h3>Gastos</h3>
+
+<p>{{gastos | currency}}</p>
+
 </ion-card>
 
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Gastos por Categoría</ion-card-title>
-  </ion-card-header>
+</ion-col>
 
-  <ion-card-content>
+</ion-row>
 
-    <canvas id="graficaPastel"></canvas>
+</ion-grid>
 
-  </ion-card-content>
+
+<!-- GRAFICA -->
+
+<ion-card class="grafica-card">
+
+<ion-card-header>
+
+<ion-card-title>Gastos por categoría</ion-card-title>
+
+</ion-card-header>
+
+<ion-card-content>
+
+<div class="grafica-container">
+
+<canvas id="graficaPastel"></canvas>
+
+</div>
+
+</ion-card-content>
+
 </ion-card>
+
+</div>
+
+</div>
 
 </ion-content>
-<ion-footer>
-  <ion-tabs>
-
-  <ion-tab-bar slot="bottom">
-
-    <ion-tab-button tab="dashboard">
-      <ion-icon name="home-outline"></ion-icon>
-      <ion-label>Dashboard</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="transacciones">
-      <ion-icon name="list-outline"></ion-icon>
-      <ion-label>Transacciones</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="agregar">
-      <ion-icon name="add-circle-outline"></ion-icon>
-      <ion-label>Agregar</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="perfil">
-      <ion-icon name="person-outline"></ion-icon>
-      <ion-label>Perfil</ion-label>
-    </ion-tab-button>
-
-  </ion-tab-bar>
-
-</ion-tabs>
-</ion-footer>
-

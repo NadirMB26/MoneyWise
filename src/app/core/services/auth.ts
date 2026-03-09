@@ -46,17 +46,23 @@ export class AuthService {
   }
 
   // USUARIO ACTUAL
-  async getUsuarioActual(){
+async getUsuarioActual(){
 
-    let user = this.usuarioActual.value;
+  let user = this.usuarioActual.value;
 
-    if(!user){
-      user = this.storage.get('session');
+  if(!user){
+
+    user = await this.storage.get('session');
+
+    console.log("SESSION STORAGE auth:", user);  // 👈 verificar
+
+    if(user){
       this.usuarioActual.next(user);
     }
 
-    return user;
-
   }
 
+  return user;
+
+}
 }

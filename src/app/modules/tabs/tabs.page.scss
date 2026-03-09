@@ -1,0 +1,50 @@
+/* TAB BAR */
+
+.tab-fintech{
+
+height:70px;
+
+border-top-left-radius:25px;
+border-top-right-radius:25px;
+
+background:white;
+
+box-shadow:0 -4px 20px rgba(0,0,0,0.08);
+
+}
+
+/* espacio central */
+
+.fab-space{
+
+flex:1;
+
+}
+
+
+/* BOTON FINTECH */
+
+.fab-fintech{
+
+--background:linear-gradient(
+135deg,
+#6A11CB,
+#8E2DE2
+);
+
+width:65px;
+height:65px;
+
+--box-shadow:0 10px 25px rgba(106,17,203,0.45);
+
+font-size:28px;
+
+}
+
+/* levantar botón */
+
+ion-fab{
+
+margin-bottom:18px;
+
+}

@@ -1,16 +1,171 @@
-.login-container{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100%;
+ion-content{
+
+--background: linear-gradient(
+135deg,
+#6A11CB,
+#8E2DE2,
+#ffffff
+);
+
 }
+
+/* contenedor */
+
+.login-container{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100%;
+
+}
+
+/* card */
 
 ion-card{
-  width:100%;
-  max-width:400px;
+
+width:100%;
+max-width:420px;
+
+border-radius:22px;
+
+box-shadow:0 12px 30px rgba(0,0,0,0.12);
+
 }
 
+/* titulo */
+
+ion-card-title{
+
+font-size:22px;
+
+font-weight:700;
+
+color:#6A11CB;
+
+}
+
+/* inputs */
+
+ion-item{
+
+--background:transparent;
+
+margin-top:10px;
+
+}
+
+/* boton principal */
+
+ion-button{
+
+--background:#6A11CB;
+
+--border-radius:12px;
+
+font-weight:600;
+
+}
+
+/* link login */
+
 .register-link{
-  margin-top:20px;
-  text-align:center;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:5px;
+
+margin-top:15px;
+
+color:white;
+
+}
+
+/* boton blanco */
+
+.btn-login{
+
+--color:white;
+
+font-weight:600;
+
+}
+.app-header{
+
+--background:white;
+
+}
+
+ion-title{
+
+text-align:center;
+
+}
+
+/* nombre de la app */
+
+.app-name{
+
+font-weight:700;
+
+color:#6A11CB;
+
+}
+
+/* nombre de la página */
+
+.page-name{
+
+font-weight:500;
+
+color:#444;
+
+}
+.app-header{
+
+--background:white;
+
+}
+
+/* titulo centrado */
+
+.main-title{
+
+text-align:center;
+
+font-family:'Poppins','Roboto',sans-serif;
+
+font-size:26px;
+
+font-weight:700;
+
+letter-spacing:1px;
+
+}
+
+/* nombre de la app */
+
+.main-title{
+
+color:#6A11CB;
+
+}
+
+/* parte de la página */
+
+.page-name{
+
+color:#444;
+
+font-weight:500;
+
+font-size:20px;
+
 }

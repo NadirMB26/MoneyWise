@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { FormTransaccionPageRoutingModule } from './form-transaccion-routing.module';
 
 import { FormTransaccionPage } from './form-transaccion.page';
+import { SharedModule } from 'src/app/shared/shared-module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FormTransaccionPageRoutingModule
+    FormTransaccionPageRoutingModule,
+    SharedModule
   ],
   declarations: [FormTransaccionPage]
 })
