@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,56 +8,75 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class AuthService {
 
   private usuarioActual = new BehaviorSubject<any>(null);
-  
+
+  // observable para escuchar cambios de usuario
+  usuarioActual$ = this.usuarioActual.asObservable();
+
   constructor(private storage: StorageService) {}
 
   async login(email: string, password: string) {
 
-    const usuario = this.storage.get('usuario');
+    let users = await this.storage.get('users') || [];
 
-    if (usuario && usuario.email === email && usuario.password === password) {
-      await this.storage.set('session', usuario);
+    const userFound = users.find((u:any)=>
+      u.email === email && u.password === password
+    );
 
-      this.usuarioActual.next(usuario);
-      
+    if(userFound){
+
+      await this.storage.set('session', userFound);
+
+      this.usuarioActual.next(userFound);
+
       return true;
+
     }
 
     return false;
   }
 
-  register(usuario: any) {
-    this.storage.set('usuario', usuario);
+  async register(usuario:any){
+
+    let users = await this.storage.get('users') || [];
+
+    users.push(usuario);
+
+    await this.storage.set('users', users);
+
+    await this.storage.set('session', usuario);
+
+    this.usuarioActual.next(usuario);
+
   }
 
-  getUsuario() {
-    return this.storage.get('usuario');
+  getUsuario(){
+    return this.usuarioActual.value;
   }
-
 
   async getUsuarioActual(){
 
-  let user = this.usuarioActual.value;
+    let user = this.usuarioActual.value;
 
-  if(!user){
+    if(!user){
 
-    user = await this.storage.get('session');
+      user = await this.storage.get('session');
 
-    console.log("SESSION STORAGE authservice:", user);  // 👈 verificar
+      if(user){
+        this.usuarioActual.next(user);
+      }
 
-    if(user){
-      this.usuarioActual.next(user);
     }
+
+    return user;
 
   }
 
-  return user;
+  async logout(){
 
-}
-logout(){
+    await this.storage.remove('session');
 
-  this.storage.remove('session');
+    this.usuarioActual.next(null);
 
-}
+  }
 
 }

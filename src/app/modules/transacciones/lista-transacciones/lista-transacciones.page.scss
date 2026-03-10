@@ -212,3 +212,13 @@ color:#7A7A8A;
 margin:2px 0;
 
 }
+.empty-state{
+  text-align:center;
+  margin-top:80px;
+  color:var(--ion-color-light);
+}
+
+.empty-state ion-icon{
+  font-size:60px;
+  margin-bottom:10px;
+}

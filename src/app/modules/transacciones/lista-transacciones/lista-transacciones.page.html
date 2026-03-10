@@ -14,9 +14,48 @@
 (onBuscarChange)="textoBusqueda = $event">
 </app-filter-bar>
 
-<!-- LISTA -->
 
-<ion-list class="lista-transacciones">
+<!-- SKELETON LOADING -->
+
+<ion-list *ngIf="loading" class="lista-transacciones">
+
+  <ion-item *ngFor="let i of [1,2,3,4]">
+
+    <ion-label>
+
+      <h2>
+        <ion-skeleton-text animated style="width:60%"></ion-skeleton-text>
+      </h2>
+
+      <p>
+        <ion-skeleton-text animated style="width:40%"></ion-skeleton-text>
+      </p>
+
+    </ion-label>
+
+  </ion-item>
+
+</ion-list>
+
+
+<!-- ESTADO VACIO -->
+
+<div *ngIf="!loading && transacciones.length === 0" class="empty-state">
+
+  <ion-icon name="wallet-outline"></ion-icon>
+
+  <h3>No tienes transacciones</h3>
+
+  <p>Agrega tu primera transacción</p>
+
+</div>
+
+
+<!-- LISTA DE TRANSACCIONES -->
+
+<ion-list
+class="lista-transacciones"
+*ngIf="!loading && transacciones.length > 0">
 
 <ion-item-sliding
 *ngFor="let t of (
@@ -26,12 +65,13 @@
   | searchByText:textoBusqueda
 )">
 
-<!-- editar -->
+<!-- EDITAR -->
 
 <ion-item-options side="start">
 
-<ion-item-option color="warning"
-(click)="editarTransaccion(t)">
+<ion-item-option
+color="warning"
+(click)="$event.stopPropagation(); editarTransaccion(t)">
 
 <ion-icon slot="icon-only" name="create-outline"></ion-icon>
 
@@ -72,7 +112,7 @@ color="primary">
 </ion-item>
 
 
-<!-- eliminar -->
+<!-- ELIMINAR -->
 
 <ion-item-options side="end">
 
@@ -93,6 +133,5 @@ color="danger"
 </div>
 
 </div>
-
 
 </ion-content>

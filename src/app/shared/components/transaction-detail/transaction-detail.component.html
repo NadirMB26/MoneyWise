@@ -1,60 +1,97 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Detalle</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Detalle de Transacción</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="cerrar()">Cerrar</ion-button>
+      <ion-button fill="clear" (click)="cerrar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="fondo-fintech ion-padding">
 
-<div class="fondo-fintech ion-padding">
+  <ion-card class="card-detalle">
 
-<ion-card>
-
-  <ion-card-header>
-    <ion-card-title>{{transaccion.getCategoria()}}</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
-
-    <ion-item>
-      <ion-label>Tipo</ion-label>
+    <ion-card-header>
+      <ion-card-title class="categoria">
+        {{transaccion.getCategoria()}}
+      </ion-card-title>
 
       <ion-badge
-      [color]="transaccion.getTipo() === 'ingreso' ? 'success' : 'danger'">
-        {{transaccion.getTipo()}}
+      [color]="transaccion.getTipo() === 'ingreso' ? 'success' : 'danger'"
+      class="badge-tipo">
+        {{transaccion.getTipo() | uppercase}}
       </ion-badge>
 
-    </ion-item>
+    </ion-card-header>
 
-    <ion-item>
-      <ion-label>Descripción</ion-label>
-      <p>{{transaccion.getDescripcion()}}</p>
-    </ion-item>
+    <ion-card-content>
 
-    <ion-item>
-      <ion-label>Monto</ion-label>
-      <p>{{transaccion.getMonto() | currency}}</p>
-    </ion-item>
+      <div class="monto">
+        {{transaccion.getMonto() | currency}}
+      </div>
 
-    <ion-item>
-      <ion-label>Fecha</ion-label>
-      <p>{{transaccion.getFecha() | date}}</p>
-    </ion-item>
+      <ion-list lines="none">
 
-    <img
-    *ngIf="transaccion.getComprobante()"
-    [src]="transaccion.getComprobante()"
-    class="comprobante">
+        <ion-item>
+          <ion-icon name="document-text-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Descripción</h3>
+            <p>{{transaccion.getDescripcion()}}</p>
+          </ion-label>
+        </ion-item>
 
-  </ion-card-content>
+        <ion-item>
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Fecha</h3>
+            <p>{{transaccion.getFecha() | date}}</p>
+          </ion-label>
+        </ion-item>
 
-</ion-card>
+      </ion-list>
 
+      <div *ngIf="transaccion.getComprobante()" class="comprobante-container">
+
+        <ion-text color="medium">
+          <h3>Comprobante</h3>
+        </ion-text>
+
+<div *ngIf="transaccion.getComprobante()" class="comprobante-container">
+
+  <ion-text color="medium">
+    <h3>Comprobante</h3>
+  </ion-text>
+
+<img
+[src]="transaccion.getComprobante()"
+class="comprobante"
+[ngClass]="tamanoImagen">
+
+<ion-segment [(ngModel)]="tamanoImagen" class="segment-preview">
+
+  <ion-segment-button value="small">
+    Pequeña
+  </ion-segment-button>
+
+  <ion-segment-button value="medium">
+    Mediana
+  </ion-segment-button>
+
+  <ion-segment-button value="large">
+    Grande
+  </ion-segment-button>
+
+</ion-segment>
 </div>
+
+      </div>
+
+    </ion-card-content>
+
+  </ion-card>
 
 </ion-content>

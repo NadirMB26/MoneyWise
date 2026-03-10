@@ -10,7 +10,7 @@
 
 <ion-card-header>
 
-<ion-card-title>Nueva Transacción</ion-card-title>
+<ion-card-title>{{ idEditar ? 'Editando transacción' : 'Registrando transacción' }}</ion-card-title>
 
 </ion-card-header>
 
@@ -72,7 +72,40 @@ placeholder="0"
 
 </ion-item>
 
+<ion-item>
 
+  <ion-label>Fecha</ion-label>
+
+  <!-- CUANDO EDITA -->
+  <ion-text slot="end" *ngIf="idEditar">
+    {{ fecha | date:'dd/MM/yyyy' }}
+  </ion-text>
+
+  <!-- CUANDO CREA -->
+  <ion-text slot="end" *ngIf="!idEditar">
+    <ion-datetime-button datetime="fechaPicker"></ion-datetime-button>
+  </ion-text>
+
+</ion-item>
+
+
+<!-- SOLO SE MUESTRA SI NO ESTA EDITANDO -->
+<ion-modal keep-contents-mounted="true" *ngIf="!idEditar">
+
+  <ng-template>
+
+    <ion-datetime
+      id="fechaPicker"
+      presentation="date"
+      showDefaultButtons="true"
+      cancelText="Cancelar"
+      doneText="Aceptar"
+      [(ngModel)]="fecha">
+    </ion-datetime>
+
+  </ng-template>
+
+</ion-modal>
 <!-- DESCRIPCION -->
 
 <ion-item>

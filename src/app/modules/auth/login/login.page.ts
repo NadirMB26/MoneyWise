@@ -20,35 +20,34 @@ export class LoginPage {
     private router: Router
   ) {}
 
-  login() {
+async login() {
 
-    let usersData = this.storage.get('users') || [];
+  let usersData = await this.storage.get('users') || [];
 
-    // reconstruimos objetos User
-    let users: User[] = usersData.map((u:any)=>
-      new User(u.id, u.nombre, u.email, u.password)
-    );
+  // reconstruimos objetos User
+  let users: User[] = usersData.map((u:any)=>
+    new User(u.id, u.nombre, u.email, u.password)
+  );
 
-    const userFound = users.find(
-      u => u.getEmail() === this.email && u.getPassword() === this.password
-    );
+  const userFound = users.find(
+    u => u.getEmail() === this.email && u.getPassword() === this.password
+  );
 
-    if(userFound){
+  if(userFound){
 
-      this.error = '';
+    this.error = '';
 
-      // guardar sesión activa
-      this.storage.set('session', userFound);
+    // guardar sesión activa
+    await this.storage.set('session', userFound);
 
-      this.router.navigate(['/tabs/dashboard']);
+    this.router.navigate(['/tabs/dashboard']);
 
-    }else{
+  }else{
 
-      this.error = 'Correo o contraseña incorrectos';
-      this.router.navigate(['/auth/register']);
-
-    }
+    this.error = 'Correo o contraseña incorrectos';
 
   }
+
+}
 
 }

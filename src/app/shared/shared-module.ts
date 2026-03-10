@@ -12,6 +12,7 @@ import { SearchByTextPipe } from './pipes/search-by-text-pipe';
 import { TransactionDetailComponent } from './components/transaction-detail/transaction-detail.component';
 import { HeaderComponent } from './components/header/header.component';
 
+
 @NgModule({
   declarations: [
     FilterBarComponent,

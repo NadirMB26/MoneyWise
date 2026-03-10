@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransaccionService } from '../../../core/services/transaccion';
 import { Transaccion } from '../../../core/models/transaccion';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { TransactionDetailComponent } from 'src/app/shared/components/transaction-detail/transaction-detail.component';
 import { Router } from '@angular/router';
 
@@ -12,78 +12,113 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class ListaTransaccionesPage implements OnInit {
-loading = true;
-tipoFiltro: string = 'todos';
-categoriaFiltro: string = '';
-textoBusqueda: string = '';
 
-cambiarTipo(event:any){
-  this.tipoFiltro = event;
-}
+  loading = true;
 
-cambiarCategoria(event:any){
-  this.categoriaFiltro = event;
-}
-
-cambiarBusqueda(event:any){
-  this.textoBusqueda = event;
-}
+  tipoFiltro: string = 'todos';
+  categoriaFiltro: string = '';
+  textoBusqueda: string = '';
 
   transacciones: Transaccion[] = [];
 
   constructor(
     private transaccionService: TransaccionService,
     private modalCtrl: ModalController,
-     private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) {}
-
-
 
   ngOnInit(){}
 
-onSearchChange(event:any){
-  console.log(event.detail.value);
-  this.textoBusqueda = event.detail.value;
-}
+  cambiarTipo(event:any){
+    this.tipoFiltro = event;
+  }
 
-  async ionViewWillEnter(){
+  cambiarCategoria(event:any){
+    this.categoriaFiltro = event;
+  }
 
-    this.transacciones =
-      await this.transaccionService.getTransaccionesUsuario();
+  cambiarBusqueda(event:any){
+    this.textoBusqueda = event;
+  }
 
-      
+  onSearchChange(event:any){
+    this.textoBusqueda = event.detail.value;
+  }
+
+async ionViewWillEnter(){
+
   this.loading = true;
 
-  this.transacciones = await this.transaccionService.getTransaccionesUsuario();
+  const data = await this.transaccionService.getTransaccionesUsuario() || [];
 
-  this.loading = false;
+  setTimeout(() => {
 
+    this.transacciones = data;
+    this.loading = false;
+
+  }, 500);
+
+}
+
+  async cargarTransacciones(){
+
+    this.loading = true;
+
+    this.transacciones =
+      await this.transaccionService.getTransaccionesUsuario() || [];
+
+    this.loading = false;
 
   }
-transaccionSeleccionada: Transaccion | null = null;
-mostrarDetalle = false;
 
-async verDetalle(transaccion: Transaccion){
+  async verDetalle(transaccion: Transaccion){
 
-  const modal = await this.modalCtrl.create({
-    component: TransactionDetailComponent,
-    componentProps:{
-      transaccion: transaccion
-    }
-  });
+    const modal = await this.modalCtrl.create({
+      component: TransactionDetailComponent,
+      componentProps:{
+        transaccion: transaccion
+      }
+    });
 
-  await modal.present();
+    await modal.present();
 
-}
+  }
 
-editarTransaccion(t:Transaccion){
-  console.log("editar", t);
-this.router.navigate(['/tabs/editar', t.getId()]);
-}
+  editarTransaccion(t:Transaccion){
 
-eliminarTransaccion(t:Transaccion){
-  this.transaccionService.eliminarTransaccion(t.getId());
-}
+    console.log("editar", t);
 
+    this.router.navigate(['/tabs/editar', t.getId()]);
+
+  }
+
+  async eliminarTransaccion(t:Transaccion){
+
+    const alert = await this.alertController.create({
+      header: 'Eliminar transacción',
+      message: '¿Desea eliminar esta transacción?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          role: 'destructive',
+          handler: async () => {
+
+            await this.transaccionService.eliminarTransaccion(t.getId());
+
+            await this.cargarTransacciones();
+
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+  }
 
 }

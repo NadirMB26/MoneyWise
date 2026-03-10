@@ -8,6 +8,7 @@ import { Transaccion } from 'src/app/core/models/transaccion';
   standalone: false,
 })
 export class TransactionDetailComponent {
+  tamanoImagen: 'small' | 'medium' | 'large' = 'medium';
 
   @Input() transaccion!: Transaccion;
 

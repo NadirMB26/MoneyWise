@@ -1,29 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StorageService } from '../../../core/services/storage';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  standalone:false
+  standalone: false
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  usuario: any;
 
   constructor(
-    private router:Router,
-    private storage:StorageService,
+    private router: Router,
     private authService: AuthService
-  ){}
+  ) {}
 
-  logout(){
-
-    this.authService.logout();
-    this.storage.remove('session');
-
-    this.router.navigate(['/auth/login']);
-
+  ngOnInit() {
+    // Suscripción única al estado del usuario
+    this.authService.usuarioActual$.subscribe(user => {
+      this.usuario = user;
+    });
   }
 
+  async logout() {
+    await this.authService.logout();
+    this.router.navigate(['/auth/login']);
+  }
 }
